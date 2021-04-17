@@ -3,6 +3,8 @@ package com.example.backend.security;
 import com.example.backend.exceptions.SocialMediaException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ import static java.util.Date.from;
 public class JwtProvider {
 
     private KeyStore keyStore;
+    
+    @Value("${jwt.expiration.time}")
+    private Long jwtExpirationInMillis;
 
     @PostConstruct
     public void init() {
@@ -41,7 +46,7 @@ public class JwtProvider {
                 .setSubject(principal.getUsername())
                 .setIssuedAt(from(Instant.now()))
                 .signWith(getPrivateKey())
-                .setExpiration(Date.from(Instant.now().plusMillis(System.currentTimeMillis() + 1000 * 60 * 60 * 10)))
+                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
                 .compact();
     }
 
@@ -50,7 +55,7 @@ public class JwtProvider {
                 .setSubject(username)
                 .setIssuedAt(from(Instant.now()))
                 .signWith(getPrivateKey())
-                .setExpiration(Date.from(Instant.now().plusMillis(System.currentTimeMillis() + 1000 * 60 * 60 * 10)))
+                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
                 .compact();
     }
 
@@ -83,6 +88,10 @@ public class JwtProvider {
                 .getBody();
 
         return claims.getSubject();
+    }
+    
+    public Long getJwtExpirationInMillis() {
+        return jwtExpirationInMillis;
     }
 
 }

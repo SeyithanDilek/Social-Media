@@ -22,18 +22,18 @@ public class CommentsController {
 
 	private final CommentService commentService;
 	
-	@PostMapping("/post")
+	@PostMapping
 	public ResponseEntity<Void> createComment(@RequestBody CommentsDto commentsDto){
 		commentService.createComment(commentsDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);	
 	}
 	
-	@GetMapping("/{postId}")
+	@GetMapping("/by-user/{postId}")
 	public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@RequestParam("postId") Long postId){
 		return status(OK).body(commentService.getCommentsByPost(postId));
 	}
 	
-	@GetMapping("/{username}")
+	@GetMapping("/by-user/{username}")
 	public ResponseEntity<List<CommentsDto>> getAllCommentsByUser(@RequestParam("username")String username){
 		return status(OK).body(commentService.getCommentsByUser(username));
 	}
