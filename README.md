@@ -1,5 +1,6 @@
 # Social-Media
-Spring Boot with Angular
+Social Media App with Spring Boot
+Version(1.0)
 
 ### Spring Framework:
   - Spring Boot
