@@ -1,6 +1,5 @@
 # Social-Media
 Social Media App with Spring Boot
-Version(1.0)
 
 ### Spring Framework:
   - Spring Boot
