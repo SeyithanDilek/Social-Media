@@ -4,6 +4,8 @@ Spring Boot with Angular
 ### Spring Framework:
   - Spring Boot
   - Spring Data Jpa
+  - Spring Mail
+  - Spring Security
   - Mysql Driver
   - Lombok
   ### Port
